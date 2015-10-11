@@ -26,12 +26,12 @@
         routehelperConfigProvider.config.$routeProvider = $routeProvider;
         routehelperConfigProvider.config.docTitle = '- Front-pilot';
 
-        var resolveAlways = {
-            ready: ['dataservice', function (dataservice) {
-                return dataservice.ready();
-            }]
-        };
-        routehelperConfigProvider.config.resolveAlways = resolveAlways;
+        //var resolveAlways = {
+        //    ready: ['dataservice', function (dataservice) {
+        //        return dataservice.ready();
+        //    }]
+        //};
+        //routehelperConfigProvider.config.resolveAlways = resolveAlways;
 
         // Configure the common exception handler
         exceptionHandlerProvider.configure(config.appErrorPrefix);

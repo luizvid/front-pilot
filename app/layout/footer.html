@@ -1,0 +1,36 @@
+<section class="widget-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-2 logo-footer">
+                <a href="#/"><img src="img/" title="vm.title" alt="vm.title" /></a>
+            </div>
+
+            <div class="col-xs-12 col-md-6 footernav">
+                <ul class="footernav list-unstyled">
+                    <li class="fade-selection-animation" data-ng-class="vm.isCurrent(r)"
+                        data-ng-repeat="r in vm.navRoutes">
+                        <a href="#{{r.originalPath}}"
+                           data-ng-bind-html="r.settings.content"></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-12 col-md-4 socialmedia">
+                <a href="#">
+                    <span class="glyphicon glyphicon-facetime-video"></span>
+                </a>
+                <a href="#">
+                    <span class="glyphicon glyphicon-registration-mark"></span>
+                </a>
+                <a href="#">
+                    <span class="glyphicon glyphicon-new-window"></span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="widget-copyright text-center">
+                <span data-ng-bind-html="vm.copyright"></span>
+            </div>
+        </div>
+    </div>
+</section>

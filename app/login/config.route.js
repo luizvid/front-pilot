@@ -21,8 +21,8 @@
                     controllerAs: 'vm',
                     title: 'Login',
                     settings: {
-                        nav: 1,
-                        content: '<i class="glyphicon glyphicon-log-in"></i> Login'
+                        nav: 10,
+                        content: 'Login'
                     }
                 }
             }

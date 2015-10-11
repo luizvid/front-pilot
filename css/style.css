@@ -1,9 +1,121 @@
+* {
+    font-family: "Helvetica Neue", Arial, Verdana, "Nimbus Sans L", sans-serif;
+    color: #555555;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media (min-width: 768px){
+    .container {
+        width: 760px;
+    }
+}
+@media (min-width: 992px){
+    .container {
+        width: 980px;
+    }
+}
+@media (min-width: 1200px) {
+    .container {
+        width: 980px;
+    }
+}
+
+
 /* topnav */
 
 .navbar-default {
     background-color: #fff;
     border-color: #fff;
+    color: #555555;
+    font-size: 16px;
 }
+
+.navbar-header {
+    height: 70px;
+}
+
+.navbar-toggle {
+    margin-top: 15px;
+}
+
+.navbar-nav>li>a {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+
+.navbar .navbar-brand {
+    margin: 0 1em;
+    height: 45px;
+}
+
+.navbar-logo img {
+    height: 50px;
+    margin-top: -5px;
+}
+/* footer */
+
+.widget-footer {
+    width: 100%;
+    min-height: 140px;
+    padding: 20px 0 0 0;
+    background-color: #ecf0f1;
+}
+
+    .widget-footer span,
+    .widget-footer a {
+        color: #555555;
+    }
+
+.widget-footer .logo-footer img {
+    width: 60px;
+    height: 60px;
+}
+
+.widget-footer .socialmedia {
+    font-size: 20px;
+}
+
+    .widget-footer .socialmedia span {
+        padding: 0 10px;
+    }
+
+@media (max-width: 992px){
+    .widget-footer {
+        text-align: center;
+    }
+
+    .widget-footer div {
+        padding-top: 10px;
+    }
+
+    .widget-footer .logo-footer {
+        margin: 0 auto;
+    }
+}
+
+.widget {
+    min-height: 500px;
+}
+
+.widget-app img {
+    height: 350px;
+}
+
+.widget-copyright {
+    margin-top: 25px;
+}
+
+    .widget-copyright span {
+        color: #959595;
+        font-size: 12px;
+    }
 
 .navbar {
     margin-bottom: 0;
@@ -31,4 +143,118 @@
 
 .btn {
     border-radius: 0;
+}
+
+
+.ng-cloak {
+    display: none !important;
+}
+
+
+.shuffle-animation.ng-enter,
+.shuffle-animation.ng-leave {
+    position: relative;
+}
+
+.shuffle-animation.ng-enter {
+    -moz-transition: ease-out all 0.2s 0.3s;
+    -o-transition: ease-out all 0.2s 0.3s;
+    -webkit-transition: ease-out all 0.2s 0.3s;
+    transition: ease-out all 0.2s 0.3s;
+    opacity: 0;
+}
+
+.shuffle-animation.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+.shuffle-animation.ng-leave {
+    -moz-transition: 0.2s ease-out all;
+    -o-transition: 0.2s ease-out all;
+    -webkit-transition: 0.2s ease-out all;
+    transition: 0.2s ease-out all;
+    opacity: 1;
+}
+
+.shuffle-animation.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
+.fader-animation.ng-enter,
+.fader-animation.ng-leave,
+.fader-animation.ng-move {
+    position: relative;
+}
+
+.fader-animation.ng-enter,
+.fader-animation.ng-leave {
+    -webkit-transition: cubic-bezier(0.250, 0.460, 0.450, 0.940) all 0.5s;
+    -moz-transition: cubic-bezier(0.250, 0.460, 0.450, 0.940) all 0.5s;
+    -o-transition: cubic-bezier(0.250, 0.460, 0.450, 0.940) all 0.5s;
+    transition: cubic-bezier(0.250, 0.460, 0.450, 0.940) all 0.5s;
+    opacity: 1;
+}
+
+.fader-animation.ng-enter,
+.fader-animation.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
+.fader-animation.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+.fader-animation.ng-move {
+    opacity:0.5;
+}
+.fader-animation.ng-move.ng-move-active {
+    opacity:1;
+}
+
+#splash-page {
+    z-index: 99999 !important;
+}
+
+#splash-page .bar {
+    width: 100%;
+}
+
+.page-splash {
+    z-index: 99999 !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    pointer-events: auto;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: opacity 0.3s linear;
+    -moz-transition: opacity 0.3s linear;
+    -o-transition: opacity 0.3s linear;
+    transition: opacity 0.3s linear;
+}
+
+.dissolve-animation.ng-hide-remove,
+.dissolve-animation.ng-hide-add {
+    position: fixed !important;
+    display: inline !important;
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+}
+
+.dissolve-animation.ng-hide-remove.ng-hide-remove-active,
+.dissolve-animation.ng-hide-add {
+    opacity: 1;
+}
+
+.dissolve-animation.ng-hide-add.ng-hide-add-active,
+.dissolve-animation.ng-hide-remove {
+    opacity: 0;
 }

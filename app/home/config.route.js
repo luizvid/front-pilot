@@ -19,11 +19,7 @@
                     templateUrl: 'app/home/home.html',
                     controller: 'Home',
                     controllerAs: 'vm',
-                    title: 'Home',
-                    settings: {
-                        nav: 1,
-                        content: '<i class="glyphicon glyphicon-home"></i> Home'
-                    }
+                    title: 'Home'
                 }
             }
         ];

@@ -1,19 +1,36 @@
 <section id="home-view">
-    <section>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="widget-home">
-                    <div class="container">
-                        <div class="row">
-                            <h1 data-ng-bind="vm.signinTxt"></h1>
-                            <br />
-                            <a href="#/signin" class="btn btn-default">
-                                <span data-ng-bind="vm.signinBtn"></span>
-                            </a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="widget widget-home">
+                <div class="container">
+                    <div class="row">
+                        <h1 data-ng-bind="vm.signinTxt"></h1>
+                        <br />
+                        <a href="#/signin" class="btn btn-default">
+                            <span data-ng-bind="vm.signinBtn"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="widget widget-app text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1 data-ng-bind="vm.appTitle"></h1>
+                            <h3 class="text-left" data-ng-bind="vm.appSubTitle"></h3>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                            <p data-ng-bind="vm.body"></p>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="img/" title="vm.bodyImgTitle" alt="vm.bodyImgTitle">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </section>

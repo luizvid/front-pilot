@@ -3,7 +3,7 @@
 
     angular.module('app.core', [
         /* Angular modules */
-        'ngRoute', 'ngSanitize',
+        'ngRoute', 'ngSanitize', 'ngAnimate',
 
         /*
          * Our reusable cross app code modules

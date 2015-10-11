@@ -1,13 +1,13 @@
 <div data-ng-controller="Shell as vm">
+    <!--[if lt IE 8]>
+        <p class="browserupgrade text-center" data-ng-bind-html="vm.browserupgrade"></p>
+    <![endif]-->
+
     <header class="clearfix">
         <div data-ng-include="'app/layout/topnav.html'"></div>
     </header>
 
     <section id="content" class="content">
-        <!--[if lt IE 8]>
-            <p class="browserupgrade" data-ng-bind="browserupgrade"></p>
-        <![endif]-->
-
         <div data-ng-view class="shuffle-animation"></div>
     </section>
 </div>

@@ -5,9 +5,9 @@
         .module('app.login')
         .controller('Login', Login);
 
-    Login.$inject = ['logger'];
+    Login.$inject = ['config', 'logger'];
 
-    function Login(logger) {
+    function Login(config, logger) {
 
         /*jshint validthis: true */
         var vm = this;
@@ -18,6 +18,7 @@
         activate();
 
         function activate() {
+            logger.success(config.appTitle + ' loaded!', null);
         }
     }
 })();

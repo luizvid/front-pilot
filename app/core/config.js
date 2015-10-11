@@ -24,7 +24,7 @@
 
         // Configure the common route provider
         routehelperConfigProvider.config.$routeProvider = $routeProvider;
-        routehelperConfigProvider.config.docTitle = 'Front-pilot - ';
+        routehelperConfigProvider.config.docTitle = '- Front-pilot';
 
         var resolveAlways = {
             ready: ['dataservice', function (dataservice) {

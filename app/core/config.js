@@ -7,7 +7,9 @@
         appErrorPrefix: '[Pilot Error] ', //Configure the exceptionHandler decorator
         appTitle: 'Front-pilot',
         browserupgrade: 'You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.',
-        version: '0.0.0'
+        version: '0.0.0',
+        lang: 'pt-br',
+        dir: 'ltr'
     };
 
     core.value('config', config);

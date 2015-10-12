@@ -1,5 +1,6 @@
 /* jshint camelcase:false */
 var gulp = require('gulp');
+var header = require('gulp-header');
 //var browserSync = require('browser-sync');
 var del = require('del');
 var glob = require('glob');
@@ -9,6 +10,8 @@ var paths = require('./gulp.config.json');
 //var plato = require('plato');
 var plug = require('gulp-load-plugins')();
 //var reload = browserSync.reload;
+var pkg = require('./package.json');
+var fs = require('fs');
 
 //var colors = plug.util.colors;
 //var env = plug.util.env;
@@ -54,6 +57,7 @@ gulp.task('templatecache', function() {
             standalone: false,
             root: 'app/'
         }))
+        .pipe(plug.header(fs.readFileSync('./copyright.js'), headers()))
         .pipe(gulp.dest(paths.build));
 });
 
@@ -68,6 +72,7 @@ gulp.task('js', ['analyze', 'templatecache'], function() {
     return gulp
         .src(source)
         // .pipe(plug.sourcemaps.init()) // get screwed up in the file rev process
+
         .pipe(plug.concat('all.min.js'))
         //.pipe(plug.ngAnnotate({
         //    add: true,
@@ -78,7 +83,8 @@ gulp.task('js', ['analyze', 'templatecache'], function() {
             mangle: true
         }))
         .pipe(plug.bytediff.stop(bytediffFormatter))
-        // .pipe(plug.sourcemaps.write('./'))
+        .pipe(plug.sourcemaps.write('./'))
+        .pipe(plug.header(fs.readFileSync('./copyright.js'), headers()))
         .pipe(gulp.dest(paths.build));
 });
 
@@ -105,12 +111,12 @@ gulp.task('css', function() {
     log('Bundling, minifying, and copying the app\'s CSS');
 
     return gulp.src(paths.css)
-        .pipe(plug.concat('all.min.css')) // Before bytediff or after
+        .pipe(plug.concat('all.min.css'))
         .pipe(plug.autoprefixer('last 2 version', '> 5%'))
         .pipe(plug.bytediff.start())
         .pipe(plug.minifyCss({}))
         .pipe(plug.bytediff.stop(bytediffFormatter))
-        //        .pipe(plug.concat('all.min.css')) // Before bytediff or after
+        .pipe(plug.header(fs.readFileSync('./copyright.js'), headers()))
         .pipe(gulp.dest(paths.build + 'css'));
 });
 
@@ -169,25 +175,25 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function() {
 
     var minified = paths.build + '**/*.min.*';
     var index = paths.base + 'index.html';
-    var minFilter = plug.filter(['**/*.min.*', '!**/*.map']);
-    var indexFilter = plug.filter(['index.html']);
+    var minFilter = plug.filter(['**/*.min.*', '!**/*.map'], {restore: true});
+    var indexFilter = plug.filter(['index.html'], {restore: true});
 
     var stream = gulp
         // Write the revisioned files
         .src([].concat(minified, index)) // add all built min files and index.html
-        //.pipe(minFilter) // filter the stream to minified css and js
-        //.pipe(plug.rev()) // create files with rev's
+        .pipe(minFilter) // filter the stream to minified css and js
+        .pipe(plug.rev()) // create files with rev's
         .pipe(gulp.dest(paths.build)) // write the rev files
-        //.pipe(minFilter.restore()) // remove filter, back to original stream
+        .pipe(minFilter.restore) // remove filter, back to original stream
 
         // inject the files into index.html
-        //.pipe(indexFilter) // filter to index.html
+        .pipe(indexFilter) // filter to index.html
         .pipe(inject('css/vendor.min.css', 'inject-vendor'))
         .pipe(inject('css/all.min.css'))
         .pipe(inject('vendor.min.js', 'inject-vendor'))
         .pipe(inject('all.min.js'))
         .pipe(gulp.dest(paths.build)) // write the rev files
-        //.pipe(indexFilter.restore()) // remove filter, back to original stream
+        .pipe(indexFilter.restore) // remove filter, back to original stream
 
         // replace the files referenced in index.html with the rev'd files
         .pipe(plug.revReplace()) // Substitute in new filenames
@@ -334,6 +340,20 @@ gulp.task('serve-stage', ['serve-build'], function() {});
 ////////////////
 
 /**
+ * Return list of headers for minified files
+ * @returns {{author: (*|exports.expected.author|author), version: string, homepage: (*|homepage), repository: (*|repository|d.repository), license: *}}
+ */
+function headers() {
+    return {
+        author: pkg.author,
+        version: pkg.version,
+        homepage: pkg.homepage,
+        repository: pkg.repository.url,
+        license: pkg.license
+    };
+}
+
+/**
  * Execute JSHint on given source files
  * @param  {Array} sources
  * @param  {String} overrideRcFile
@@ -360,44 +380,6 @@ function analyzejscs(sources) {
         .src(sources)
         .pipe(plug.jscs('./.jscsrc'));
 }
-
-/**
- * Start the node server using nodemon.
- * Optionally start the node debugging.
- * @param  {Object} args - debugging arguments
- * @return {Stream}
- */
-//function serve(args) {
-//    var options = {
-//        script: paths.server + 'app.js',
-//        delayTime: 1,
-//        env: {
-//            'NODE_ENV': args.mode,
-//            'PORT': port
-//        },
-//        watch: [paths.server]
-//    };
-//
-//    var exec;
-//    if (args.debug) {
-//        log('Running node-inspector. Browse to http://localhost:8080/debug?port=5858');
-//        exec = require('child_process').exec;
-//        exec('node-inspector');
-//        options.nodeArgs = [args.debug + '=5858'];
-//    }
-//
-//    return plug.nodemon(options)
-//        .on('start', function() {
-//            startBrowserSync();
-//        })
-//        //.on('change', tasks)
-//        .on('restart', function() {
-//            log('restarted!');
-//            setTimeout(function () {
-//                browserSync.reload({ stream: false });
-//            }, 1000);
-//        });
-//}
 
 /**
  * Start BrowserSync

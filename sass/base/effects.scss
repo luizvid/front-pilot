@@ -15,18 +15,6 @@
     opacity: 1;
 }
 
-.shuffle-animation.ng-leave {
-    -moz-transition: 0.2s ease-out all;
-    -o-transition: 0.2s ease-out all;
-    -webkit-transition: 0.2s ease-out all;
-    transition: 0.2s ease-out all;
-    opacity: 1;
-}
-
-.shuffle-animation.ng-leave.ng-leave-active {
-    opacity: 0;
-}
-
 .fader-animation.ng-enter,
 .fader-animation.ng-leave,
 .fader-animation.ng-move {

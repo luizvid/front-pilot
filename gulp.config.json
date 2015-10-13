@@ -18,9 +18,13 @@
     "./bower_components/font-awesome/css/font-awesome.min.css",
     "./bower_components/toastr/toastr.css"
   ],
+  "watchsass": [
+    "./sass/**/*.sass",
+    "./sass/**/*.scss"
+  ],
   "sass": [
-    "./scss/*.sass",
-    "./scss/*.scss"
+    "./sass/*.sass",
+    "./sass/*.scss"
   ],
   "css": [
     "./css/*.css"

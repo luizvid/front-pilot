@@ -10,7 +10,9 @@
          */
         'app.layout',
         'app.home',
-        'app.login'
+        'app.login',
+        'app.signin',
+        'app.about'
     ]);
 })();
 console.log('test');

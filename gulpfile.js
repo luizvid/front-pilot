@@ -135,15 +135,20 @@ gulp.task('vendorcss', function() {
 });
 
 /**
- *  Compile Sass/scss files into css
+ * Watch Sass/scss files into css
  * @return {Stream}
  */
-gulp.task('sass', function () {
+gulp.task('sass:watch', function () {
     log('Compiling sass/scss into CSS');
 
-    gulp.src(paths.sass)
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./css'));
+    var sass = ['gulpfile.js'].concat(paths.sass, paths.watchsass);
+    gulp
+        .watch(sass, ['css'])
+        .on('change', logWatch);
+
+    function logWatch(event) {
+        log('*** File ' + event.path + ' was ' + event.type + ', running tasks...');
+    }
 });
 
 /**
@@ -259,9 +264,14 @@ gulp.task('clean', function(cb) {
 gulp.task('watch', function() {
     log('Watching all files');
 
-    var css = ['gulpfile.js'].concat(paths.css, paths.vendorcss);
+    var html = ['gulpfile.js'].concat(paths.html, paths.htmltemplates);
+    var css = ['gulpfile.js'].concat(paths.css, paths.sass, paths.watchsass, paths.vendorcss);
     var images = ['gulpfile.js'].concat(paths.images);
     var js = ['gulpfile.js'].concat(paths.js);
+
+    gulp
+        .watch(html, ['templatecache', 'js'])
+        .on('change', logWatch);
 
     gulp
         .watch(js, ['js', 'vendorjs'])

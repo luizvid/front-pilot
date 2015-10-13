@@ -13,3 +13,4 @@
         'app.login'
     ]);
 })();
+console.log('test');

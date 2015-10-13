@@ -1,22 +1,17 @@
 /* jshint camelcase:false */
 var gulp = require('gulp');
 var header = require('gulp-header');
-//var browserSync = require('browser-sync');
 var del = require('del');
 var glob = require('glob');
-//var karma = require('karma').server;
+var sass = require('gulp-sass');
 var merge = require('merge-stream');
 var paths = require('./gulp.config.json');
-//var plato = require('plato');
+var plato = require('plato');
 var plug = require('gulp-load-plugins')();
-//var reload = browserSync.reload;
 var pkg = require('./package.json');
 var fs = require('fs');
 
-//var colors = plug.util.colors;
-//var env = plug.util.env;
 var log = plug.util.log;
-//var port = process.env.PORT || 7203;
 
 /**
  * List the available gulp tasks
@@ -33,7 +28,7 @@ gulp.task('analyze', function() {
     //var jshint = analyzejshint([].concat(paths.js, paths.specs, paths.nodejs));
     //var jscs = analyzejscs([].concat(paths.js, paths.nodejs));
 
-    //startPlatoVisualizer();
+    startPlatoVisualizer();
 
     //return merge(jshint, jscs);
 });
@@ -110,7 +105,8 @@ gulp.task('vendorjs', function() {
 gulp.task('css', function() {
     log('Bundling, minifying, and copying the app\'s CSS');
 
-    return gulp.src(paths.css)
+    return gulp.src(paths.sass)
+        .pipe(sass().on('error', sass.logError))
         .pipe(plug.concat('all.min.css'))
         .pipe(plug.autoprefixer('last 2 version', '> 5%'))
         .pipe(plug.bytediff.start())
@@ -136,6 +132,18 @@ gulp.task('vendorcss', function() {
         .pipe(plug.minifyCss({}))
         .pipe(plug.bytediff.stop(bytediffFormatter))
         .pipe(gulp.dest(paths.build + 'css'));
+});
+
+/**
+ *  Compile Sass/scss files into css
+ * @return {Stream}
+ */
+gulp.task('sass', function () {
+    log('Compiling sass/scss into CSS');
+
+    gulp.src(paths.sass)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./css'));
 });
 
 /**
@@ -174,7 +182,7 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function() {
     log('Rev\'ing files and building index.html');
 
     var minified = paths.build + '**/*.min.*';
-    var index = paths.base + 'index.html';
+    var index = paths.root + 'index.html';
     var minFilter = plug.filter(['**/*.min.*', '!**/*.map'], {restore: true});
     var indexFilter = plug.filter(['index.html'], {restore: true});
 
@@ -196,8 +204,8 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function() {
         .pipe(indexFilter.restore) // remove filter, back to original stream
 
         // replace the files referenced in index.html with the rev'd files
-        .pipe(plug.revReplace()) // Substitute in new filenames
-        .pipe(gulp.dest(paths.build)) // write the index.html file changes
+        //.pipe(plug.revReplace()) // Substitute in new filenames
+        //.pipe(gulp.dest(paths.build)) // write the index.html file changes
         .pipe(plug.rev.manifest()) // create the manifest (must happen last or we screw up the injection)
         .pipe(gulp.dest(paths.build)); // write the manifest
 
@@ -382,39 +390,13 @@ function analyzejscs(sources) {
 }
 
 /**
- * Start BrowserSync
- */
-function startBrowserSync() {
-    if(!env.browserSync || browserSync.active) {
-        return;
-    }
-
-    log('Starting BrowserSync on port ' + port);
-    browserSync({
-        proxy: 'localhost:' + port,
-        port: 3000,
-        files: [paths.client + '/**/*.*'],
-        ghostMode: { // these are the defaults t,f,t,t
-            clicks: true,
-            location: false,
-            forms: true,
-            scroll: true
-        },
-        logLevel: 'debug',
-        logPrefix: 'gulp-patterns',
-        notify: true,
-        reloadDelay: 5000
-    });
-}
-
-/**
  * Start Plato inspector and visualizer
  */
 function startPlatoVisualizer() {
     log('Running Plato');
 
-    var files = glob.sync('./src/client/app/**/*.js');
-    var excludeFiles = /\/src\/client\/app\/.*\.spec\.js/;
+    var files = glob.sync('./app/**/*.js');
+    var excludeFiles = /\/app\/.*\.spec\.js/;
 
     var options = {
         title: 'Plato Inspections Report',

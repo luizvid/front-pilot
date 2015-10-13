@@ -1,0 +1,35 @@
+* {
+  color: $gb-text-color;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 768px){
+  .container {
+    width: 760px;
+  }
+}
+@media (min-width: 992px){
+  .container {
+    width: 980px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 980px;
+  }
+}
+
+.btn {
+  border-radius: 0;
+}
+
+
+.ng-cloak {
+  display: none !important;
+}

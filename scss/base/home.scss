@@ -1,0 +1,16 @@
+.widget-home {
+    background-color: $widget-home-bg-color;
+    height: 500px;
+    padding: 50px 0;
+}
+
+    .widget-home h1 {
+        color: #fff;
+        text-shadow: none;
+        font-size: 20px;
+    }
+
+    .widget-home a span {
+        color: $widget-home-bg-color;
+        font-size: 20px;
+    }

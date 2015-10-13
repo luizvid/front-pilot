@@ -1,18 +1,16 @@
-# Ignore Node & Bower
-###################
+# Ignore Node, Bower, Build, Tests & Reports #
+bower_components
 node_modules
 /build
-bower_components
 **/test/coverage
+/report
 
 # Ignore Web Storm #
 .idea
 
 # Packages #
-############
 *.zip
 
 # Logs and databases #
-######################
 *.log
 *.sql

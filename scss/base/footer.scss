@@ -1,0 +1,47 @@
+.widget-footer {
+    width: 100%;
+    min-height: 140px;
+    padding: 20px 0 0 0;
+    background-color: $footer-bg-color;
+}
+
+    .widget-footer span,
+    .widget-footer a {
+        color: $footer-text-color;
+    }
+
+.widget-footer .logo-footer img {
+    width: 60px;
+    height: 60px;
+}
+
+.widget-footer .socialmedia {
+    font-size: 20px;
+}
+
+    .widget-footer .socialmedia span {
+        padding: 0 10px;
+    }
+
+@media (max-width: 992px){
+    .widget-footer {
+        text-align: center;
+    }
+
+    .widget-footer div {
+        padding-top: 10px;
+    }
+
+    .widget-footer .logo-footer {
+        margin: 0 auto;
+    }
+}
+
+.widget-copyright {
+    margin-top: 25px;
+}
+
+    .widget-copyright span {
+        color: $cp-text-color;
+        font-size: 12px;
+    }
